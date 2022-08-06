@@ -1,2 +1,2 @@
-# thorium
-Backend cohort Feb 2022 - May 2022
+# plutonium
+Backend cohort july 2022 - nov 2022
