@@ -102,7 +102,7 @@ router.get("/films/:filmId", function(req, res){
        //if there is no match give an error response
        res.send("The film id doesn't match any movie")
 })
-router.get("sollution", function(req,res){
+router.get("/sollution", function(req,res){
     let arr = [1,2,3,5,6,7]
     let sum = 0;
     for(let i in arr){
@@ -111,8 +111,21 @@ router.get("sollution", function(req,res){
     let lastdigit = arr.pop()
     let consecutivesum = lastdigit * (lastdigit+1)/2
     let missingnumb = consecutivesum - sum
-    res.send({data:missingnumber})
+    res.send({data: missingnumb})
     
+});
+router.get("/sollution2",function(req,res){
+    let arr = [33,34,35,37,38]
+    let Len = arr.length
+    let sum = 0
+    for(let i in arr){
+        sum += arr[i]
+    }
+    let firstdigit = arr[0]
+    let lastdigit = arr.pop()
+    let consecutivesum = (Len+1) * (firstdigit + lastdigit)/2
+    let missingnumber = consecutivesum - sum
+    res.send({data:missingnumber})
 });
 module.exports = router;
 // adding this comment for no reason
