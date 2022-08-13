@@ -127,5 +127,48 @@ router.get("/sollution2",function(req,res){
     let missingnumber = consecutivesum - sum
     res.send({data:missingnumber})
 });
+let persons = [
+    {
+        name: "hemu",
+        age: 15,
+        votingStatus:false,
+    },
+    {
+        name: "bachayadav",
+        age: 20,
+        votingStatus: false,
+    },
+    {
+        
+        name: "ravi",
+        age: 70,
+        votingStatus: false,
+    },
+    {
+    name: "anshu",
+    age: 25,
+    votingStatus: false,
+    },
+    {
+    name: "sunil",
+    age: 21,
+    votingStatus: false,
+    }
+];
+router.post("/personss",function(req,res){
+    let personvote = [];
+    let votingAge = req.query.inputAge
+    for(let i=0;i<persons.length;i++){
+        let personsage = persons[i].age;
+        if(personsage>votingAge){
+            persons[i].votingStatus = true;
+        }
+    }
+    personvote = persons.filter((person)=>person.age > votingAge);
+    res.send(personvote);
+})
+
+
+
 module.exports = router;
 // adding this comment for no reason
