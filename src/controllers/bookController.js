@@ -23,7 +23,11 @@ const randombooks = async function(req, res){
         res.send({msg:randombook})   
 } 
  
-const getbooksbyyear = async function(req,res){}
+const getbooksyear = async function(req,res){
+    let year = req.body.Year
+    let savedData = await BookModel.find({Year:{$eq:year}})
+    res.send({msg:savedData})
+}
 
    
 
@@ -105,3 +109,4 @@ module.exports.createBook= createBook
 module.exports.BooksList= BooksList
 module.exports.INRBooks= INRBooks
 module.exports.randombooks= randombooks
+module.exports.getbooksyear= getbooksyear
