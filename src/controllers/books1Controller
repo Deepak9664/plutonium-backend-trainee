@@ -1,0 +1,51 @@
+const { count } = require("console")
+const Bookss1Model = require("../models/books1Model")
+const AuthorModel = require("../models/authorModel")
+
+
+const createbook1= async function (req, res) {
+    let data= req.body
+    let authorId = data.author_id
+    if(!authorId){
+        return res.send({status:false,msg: "Book must be present"})
+    }
+    let savedData= await Bookss1Model.create(data)
+    res.send({msg: savedData})
+}
+const authors= async function (req, res) {
+    let data= req.body
+let authorId = data.author_id
+if(!authorId){
+    return res.send({status:false,msg: "author must be present"})
+}
+    let savedData= await AuthorModel.create(data)
+    res.send({msg: savedData})
+}
+const listbooks1 = async function(req,res){
+    let findwriter = await AuthorModel.find({author_name : "Chetan Bhagat"});
+    let findbook = await Bookss1Model.find({author_id : {$eq:findwriter[0].author_id}});
+    res.send({msg:findbook});
+}
+
+const updationbooks = async function(req ,res){
+    let pricebook = await Bookss1Model.findOneAndUpdate({name :"Two states" }, {$set : {price:100}}, {new : true});
+    let updateprice = pricebook.price;
+    let writerupdate = await AuthorModel.find({author_id :{$eq : pricebook.author_id}}).select({author_name:1, _id:0});
+    res.send({writerupdate,updateprice});
+}
+ 
+const pricerange = async function(req,res){
+    let range = await Bookss1Model.find({price :{$gte :50,$lte:100}});
+    let Y = range.map(x=>x.author_id);
+    let newrange =await AuthorModel.find({author_id :Y}).select({author_name:1,_id:0});
+    res.send(newrange);
+}
+
+
+
+module.exports.createbook1= createbook1
+module.exports.authors= authors
+module.exports.listbooks1 = listbooks1
+module.exports.updationbooks = updationbooks
+module.exports.pricerange = pricerange
+
