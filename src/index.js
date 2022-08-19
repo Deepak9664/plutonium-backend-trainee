@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-mongoose.connect("mongodb+srv://Deepak9666:vwGhTuklxJu2hPPK@cluster0.l1wlrcl.mongodb.net/deepreference", {
+mongoose.connect("mongodb+srv://Deepak9666:vwGhTuklxJu2hPPK@cluster0.l1wlrcl.mongodb.net/assig(ref,populat)deep", {
     useNewUrlParser: true
 })
 .then( () => console.log("MongoDb is connected"))
