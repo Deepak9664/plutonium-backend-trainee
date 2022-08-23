@@ -1,4 +1,4 @@
-const newAuthorModel= require("../models/newAuthorModel")
+const newAuthorModel = require("../models/newAuthorModel")
 
 
 
