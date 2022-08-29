@@ -20,7 +20,20 @@ const mid4= function ( req, res, next) {
     next()
 }
 
+const middleware = function(req,res,next){
+    if(req.headers.isfreeappuser===undefined)
+    res.send({msg:"the request is missing a mandatory header"})
+    else{
+        req.isFreeAppUser=Boolean(req.headers.isfreeappuser)
+        next();
+
+    }
+}
+
+
+
 module.exports.mid1= mid1
 module.exports.mid2= mid2
 module.exports.mid3= mid3
 module.exports.mid4= mid4
+module.exports.middleware = middleware

@@ -17,13 +17,14 @@ mongoose.connect("mongodb+srv://Deepak9666:vwGhTuklxJu2hPPK@cluster0.l1wlrcl.mon
 
 
 app.use('/', route);
-
 app.use (
     function (req, res, next) {
         console.log ("inside GLOBAL MW");
         res.send({msg:"done"})
   }
   );
+
+
 
 
 app.listen(process.env.PORT || 3000, function () {
