@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken");
 
 const validateToken = function(req, res, next) {
+  try{
     let token = req.headers["x-Auth-token"];
     if (!token) token = req.headers["x-auth-token"];
   
     //If no token is present in the request header return error
-    if (!token) return res.send({ status: false, msg: "token must be present" });
+    if (!token) return res.status(401).send({ status: false, msg: "token must be present" });
   
     console.log(token);
     
@@ -16,19 +17,30 @@ const validateToken = function(req, res, next) {
     // Check the value of the decoded token yourself
     let decodedToken = jwt.verify(token, "functionup-plutonium-very-very-secret-key");
     if (!decodedToken) {
-      return res.send({ status: false, msg: "token is invalid" });
+      return res.status(403).send({ status: false, msg: "token is invalid" });
     }
     req.loggedInUser = decodedToken.userId
     next()
 }
+catch(err){
+  res.status(500).send({error:err.message})
+}
+}
 
-const authorized = function(req,res,next){
+  const authorized = function(req,res,next){
+    try{
   let requestedUserId = req.params.userId
   if(requestedUserId!== req.loggedInUser){
-    return res.send({status:false,msg:"permission denied"})
+    return res.status(403).send({status:false,msg:"permission denied"})
   }
   next()
 }
+catch(err){
+  res.status(500).send({error:err.message})
+}
+  }
+
+
 
 
 
