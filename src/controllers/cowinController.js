@@ -56,6 +56,24 @@ let getByPin = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
+let getbydist = async function (req, res) {
+    try {
+        let dist = req.query.district_id 
+        let date = req.query.date
+        console.log(`query params are: ${dist} ${date}`)
+        let  options = {
+            method: "get",
+            url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${dist}&date=${date}`
+        }
+        let result = await axios(options)
+        console.log(result.data)
+        res.status(200).send({ msg: result.data })
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).send({ msg: err.message })
+    }
+}
 
 let getOtp = async function (req, res) {
     try {
@@ -78,8 +96,32 @@ let getOtp = async function (req, res) {
     }
 }
 
+let memes = async function(req,res){
+    try{
+    // let tempid = req.query.template_id
+    // let text0 = req.query.text0
+    // let text1 = req.query.text1
+    // let username = req.query.username
+    // let password1 = req.query.password
+    const query =  req.query
+    let options = {
+        method: "post",
+        url: `https://api.imgflip.com/caption_image`,
+        params:query
+}
+        let result = await axios(options)
+          console.log(result.data)
+           res.status(200).send({ msg: result.data })
+}
+catch (err) {
+    console.log(err)
+    res.status(500).send({ msg: err.message })
+}
+}
 
 module.exports.getStates = getStates
 module.exports.getDistricts = getDistricts
 module.exports.getByPin = getByPin
 module.exports.getOtp = getOtp
+module.exports.getbydist= getbydist
+module.exports.memes = memes
